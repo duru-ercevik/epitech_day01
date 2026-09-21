@@ -1,0 +1,1 @@
+Vim is an advanced text editor.
