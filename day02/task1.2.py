@@ -1,0 +1,6 @@
+print(84<42)
+print(0==-(-0))
+print(666!=42)
+print(2**21)
+print(pow(10,3))
+print(9%2)
