@@ -2,6 +2,9 @@ import codecs
 
 text = input("Enter a text: ")
 
+# Convert the input text to UTF-8
+text = codecs.decode(text.encode("utf-8"), "utf-8")
+
 text = text.lower()
 
 letter_counts = {}
