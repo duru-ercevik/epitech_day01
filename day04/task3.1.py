@@ -13,3 +13,5 @@ for char in user_text:
         encrypted += char #do not change if it space or soething else than letters
 
 print(encrypted)
+
+#ord() function is used to turn the characters into number and chr() function does the reverse 
