@@ -8,16 +8,16 @@ NUMBERS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight
 def check_lose(penalties): #to check if the penalty limit is exceeded or not
     if penalties >= MAX_PENALTIES:
         print("You lose!")
-        return True
+        return True #if the user lost return true 
     return False
 
 
-def pick_word():
+def pick_word(): #picking a random english word
     words = get_english_words_set(['web2'], lower=True)
     return random.choice(list(words)).upper()
 
 
-def hidden_word(word, found_letters):
+def hidden_word(word, found_letters): #printing the _ sign as many times the word has and if the user guess the letter correct replace the _ by the letter
     result = ""
     for letter in word:
         if letter in found_letters:
