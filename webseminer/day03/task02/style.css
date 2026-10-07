@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: sans-serif;
+}
+
+header,
+.green,
+article,
+footer {
+    padding: 10px;
+}
+
+.green,
+article {
+    min-height: 100px;
+}
+
+.blue { background-color: #67B3DD; }
+.green { background-color: #9EE062; }
+.yellow { background-color: #FEDF6B; }
+.red { background-color: #FC302D; }
+
+@media (max-width: 767px) {
+    .articles {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .articles article:nth-child(n+3) {
+        display: none;
+    }
+}
