@@ -8,11 +8,88 @@ const adsList = document.getElementById("ads-list");
 const adsSummary = document.getElementById("ads-summary");
 const pagination = document.getElementById("pagination");
 
-// Sayfa açılınca: önce menüyü (ve giriş yapan kişiyi), sonra ilanları yükle
+// Sayfa açılınca: önce menüyü (ve giriş yapan kişiyi), sonra profil kartını ve ilanları yükle
 document.addEventListener("DOMContentLoaded", async () => {
   currentUser = await renderNav();
+  renderProfileCard();
   loadAds(1);
 });
+
+// ---------- Profil kartı (sağ sütun) ----------
+
+const ROLE_TITLES = {
+  user: "Aday",
+  recruiter: "Şirket temsilcisi",
+  admin: "Yönetici",
+};
+
+async function renderProfileCard() {
+  const card = document.getElementById("profile-card");
+
+  // Giriş yapılmamışsa: davet kartı
+  if (!currentUser) {
+    card.innerHTML = `
+      <div class="profile-cover"></div>
+      <div class="profile-body">
+        <div class="avatar avatar-empty">?</div>
+        <h2 class="profile-name">Hoş geldin!</h2>
+        <p class="muted">Hesap oluştur, ilanlara bilgilerini tekrar yazmadan tek tıkla başvur.</p>
+        <a href="/account.html" class="btn btn-block">Hesap oluştur</a>
+        <a href="/login.html" class="btn btn-ghost btn-block">Giriş yap</a>
+      </div>
+    `;
+    return;
+  }
+
+  const user = currentUser;
+  const initials = `${user.first_name[0] || ""}${user.last_name[0] || ""}`.toUpperCase();
+  const subtitle = ROLE_TITLES[user.role] + (user.company_name ? ` · ${user.company_name}` : "");
+  const panelUrl = panelUrlFor(user);
+
+  card.innerHTML = `
+    <div class="profile-cover"></div>
+    <div class="profile-body">
+      <div class="avatar">${escapeHtml(initials)}</div>
+      <h2 class="profile-name">${escapeHtml(user.first_name)} ${escapeHtml(user.last_name)}</h2>
+      <p class="muted profile-subtitle">${escapeHtml(subtitle)}</p>
+      <p class="profile-email">${escapeHtml(user.email)}</p>
+    </div>
+    <div class="profile-section" id="profile-applications"></div>
+    <div class="profile-section profile-links">
+      ${panelUrl ? `<a href="${panelUrl}">${user.role === "admin" ? "Admin paneli" : "Şirket paneli"}</a>` : ""}
+      <a href="/account.html">Hesap ayarları</a>
+    </div>
+  `;
+
+  // Başvuru listesi sadece adaylar için (admin ve recruiter başvuru yapmıyor)
+  if (user.role === "user") {
+    loadMyApplications();
+  } else {
+    document.getElementById("profile-applications").remove();
+  }
+}
+
+async function loadMyApplications() {
+  const box = document.getElementById("profile-applications");
+  try {
+    const data = await api("/api/auth/me/applications?limit=3");
+    const list = data.items.map((a) => `
+      <li>
+        <span class="profile-app-title">${escapeHtml(a.ad_title)}</span>
+        <span class="muted">${formatDate(a.created_at)}${a.email_sent ? " · Dönüş yapıldı" : ""}</span>
+      </li>`).join("");
+
+    box.innerHTML = `
+      <div class="profile-stat">
+        <span>Başvurularım</span>
+        <strong>${data.total}</strong>
+      </div>
+      ${data.total ? `<ul class="profile-apps">${list}</ul>` : `<p class="muted">Henüz başvurun yok.</p>`}
+    `;
+  } catch (error) {
+    box.innerHTML = "";
+  }
+}
 
 // ---------- İlan listesi ----------
 
@@ -172,6 +249,7 @@ async function submitApplication(event, adId, box) {
   try {
     await api("/api/applications", { method: "POST", body });
     box.innerHTML = `<p class="success">Başvurunuz alındı. Teşekkürler!</p>`;
+    if (currentUser && currentUser.role === "user") loadMyApplications();  // karttaki sayıyı güncelle
   } catch (error) {
     message.className = "form-message error";
     message.textContent = error.message;

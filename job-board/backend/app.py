@@ -278,6 +278,14 @@ def update_me():
     return jsonify(find_person(user_id))
 
 
+# Giriş yapan kullanıcının kendi başvuruları (profil kartında gösteriliyor)
+@app.route("/api/auth/me/applications", methods=["GET"])
+@login_required
+def my_applications():
+    sql = APPLICATION_SELECT + " WHERE ap.person_id = ? ORDER BY ap.created_at DESC, ap.id DESC"
+    return paginate(sql, [g.user["id"]], bool_fields=["email_sent"])
+
+
 @app.route("/")
 def home():
     return send_from_directory(FRONTEND_DIR, "index.html")

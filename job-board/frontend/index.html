@@ -3,31 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Board</title>
+  <title>FindMyJob</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="/" class="logo">job<span>board</span></a>
+    <div class="container container-home header-inner">
+      <a href="/" class="logo">find<span>myjob</span></a>
       <nav id="nav-links" class="nav-links"></nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Bir sonraki işini bul</h1>
-      <p>Şirketlerin güncel iş ve staj ilanları tek bir yerde.</p>
-    </section>
+  <main class="container container-home home-layout">
+    <!-- Sol: ilanlar -->
+    <div class="home-main">
+      <section class="hero">
+        <h1>Bir sonraki işini bul</h1>
+        <p>Şirketlerin güncel iş ve staj ilanları tek bir yerde.</p>
+      </section>
 
-    <p id="ads-summary" class="muted"></p>
-    <div id="ads-list" class="ads-list">
-      <p class="muted">İlanlar yükleniyor...</p>
+      <p id="ads-summary" class="muted"></p>
+      <div id="ads-list" class="ads-list">
+        <p class="muted">İlanlar yükleniyor...</p>
+      </div>
+
+      <nav id="pagination" class="pagination"></nav>
     </div>
 
-    <nav id="pagination" class="pagination"></nav>
+    <!-- Sağ: profil kartı (sayfa kaydırılınca yerinde kalır) -->
+    <aside class="home-side">
+      <div id="profile-card" class="card profile-card"></div>
+    </aside>
   </main>
 
   <script src="/js/api.js"></script>

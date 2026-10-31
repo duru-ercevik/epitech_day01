@@ -1,14 +1,15 @@
 /* ---------- Renkler ve temel ayarlar ---------- */
 :root {
-    --bg: #f6f5f1;
+    --bg: #f7f5f4;
     --surface: #ffffff;
-    --text: #1d1d1b;
-    --muted: #6b6b66;
-    --border: #e3e1da;
-    --primary: #2f5d50;
-    --primary-hover: #244a3f;
-    --primary-soft: #e4eeea;
-    --danger: #b3412e;
+    --text: #1f1a1a;
+    --muted: #6e6563;
+    --border: #e7e1df;
+    --primary: #b42318;
+    --primary-hover: #912018;
+    --primary-soft: #fdecea;
+    --danger: #8f1d14;
+    --danger-soft: #f6e1de;
     --success: #2f7a4f;
     --radius: 12px;
   }
@@ -205,7 +206,7 @@
   }
   
   .badge-closed {
-    background: #f3e3df;
+    background: var(--danger-soft);
     color: var(--danger);
   }
   
@@ -410,7 +411,7 @@
   }
   
   .panel-message.error {
-    background: #f3e3df;
+    background: var(--danger-soft);
   }
   
   .panel-message.success {
@@ -465,13 +466,13 @@
   }
   
   .btn-danger {
-    background: transparent;
-    border-color: var(--danger);
+    background: var(--danger-soft);
+    border-color: transparent;
     color: var(--danger);
   }
   
   .btn-danger:hover {
-    background: #f3e3df;
+    background: #efcfca;
   }
   
   .badge-on {
@@ -538,4 +539,159 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     max-width: 260px;
+  }
+  
+  /* ---------- Ana sayfa: ilanlar + sağda profil kartı ---------- */
+  .container-home {
+    max-width: 1120px;
+  }
+  
+  .home-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 32px;
+    align-items: start;
+  }
+  
+  /* Sayfa kaydırılınca profil kartı ekranda kalır */
+  .home-side {
+    position: sticky;
+    top: 24px;
+    padding-top: 48px;
+  }
+  
+  .profile-card {
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .profile-cover {
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary), #e0563f);
+  }
+  
+  .profile-body {
+    padding: 0 20px 20px;
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 72px;
+    height: 72px;
+    margin: -36px auto 12px;
+    border: 3px solid var(--surface);
+    border-radius: 50%;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .avatar-empty {
+    color: var(--muted);
+    background: #efeae8;
+  }
+  
+  .profile-name {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  
+  .profile-subtitle,
+  .profile-email {
+    margin: 2px 0 0;
+    font-size: 0.9rem;
+  }
+  
+  .profile-email {
+    color: var(--muted);
+    word-break: break-all;
+  }
+  
+  .profile-body > .muted:not(.profile-subtitle) {
+    margin: 8px 0 16px;
+    font-size: 0.92rem;
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+  }
+  
+  .profile-section {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  
+  .profile-section p {
+    margin: 4px 0 0;
+  }
+  
+  .profile-stat {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+  }
+  
+  .profile-stat strong {
+    color: var(--primary);
+  }
+  
+  .profile-apps {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+  }
+  
+  .profile-apps li {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+  }
+  
+  .profile-apps li + li {
+    border-top: 1px dashed var(--border);
+  }
+  
+  .profile-app-title {
+    font-weight: 500;
+  }
+  
+  .profile-apps .muted {
+    font-size: 0.82rem;
+  }
+  
+  .profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .profile-links a {
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  /* Dar ekranlarda tek sütun: profil kartı ilanların üstüne geçer */
+  @media (max-width: 860px) {
+    .home-layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  
+    .home-side {
+      position: static;
+      order: -1;
+      padding-top: 24px;
+    }
+  
+    .home-side .profile-card {
+      max-width: 420px;
+    }
   }

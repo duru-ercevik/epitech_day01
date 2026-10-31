@@ -56,7 +56,7 @@ const ROLE_LABELS = {
   
   /** Formu "hesabı düzenle" moduna geçirir ve mevcut bilgileri doldurur. */
   function setupEditMode(user, form, passwordInput, submitButton) {
-    document.title = "Hesabım · Job Board";
+    document.title = "Hesabım · FindMyJob";
     document.getElementById("account-title").textContent = "Hesabım";
     document.getElementById("account-subtitle").textContent = "Kişisel bilgilerini güncelle.";
   
