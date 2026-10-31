@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şirket paneli · Job Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container container-wide header-inner">
+      <a href="/" class="logo">job<span>board</span></a>
+      <nav id="nav-links" class="nav-links"></nav>
+    </div>
+  </header>
+
+  <main class="container container-wide panel-page">
+    <div class="panel-heading">
+      <h1>Şirket paneli · <span id="panel-company"></span></h1>
+      <p class="muted">Şirketinin ilanlarını yönet ve gelen başvuruları takip et.</p>
+    </div>
+
+    <nav id="panel-tabs" class="tabs"></nav>
+
+    <section class="panel-section">
+      <div class="panel-toolbar">
+        <div>
+          <h2 id="panel-title"></h2>
+          <span id="panel-count" class="muted"></span>
+        </div>
+        <button type="button" class="btn" id="panel-new" hidden></button>
+      </div>
+
+      <p id="panel-message" class="panel-message" role="status" hidden></p>
+      <div id="panel-form" hidden></div>
+      <div id="panel-list"></div>
+      <nav id="panel-pagination" class="pagination"></nav>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/panel.js"></script>
+  <script src="/js/recruiter.js"></script>
+</body>
+</html>

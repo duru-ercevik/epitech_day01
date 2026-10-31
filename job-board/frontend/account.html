@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hesabım · Job Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">job<span>board</span></a>
+      <nav id="nav-links" class="nav-links"></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card auth-card">
+      <!-- Başlık ve açıklama, giriş durumuna göre JavaScript ile değişir -->
+      <h1 id="account-title">Hesap oluştur</h1>
+      <p id="account-subtitle" class="muted">Hesap oluşturarak ilanlara tek tıkla başvurabilirsin.</p>
+      <p id="account-role" class="muted" hidden></p>
+
+      <form id="account-form">
+        <div class="form-row">
+          <label>Ad <input name="first_name" autocomplete="given-name" required></label>
+          <label>Soyad <input name="last_name" autocomplete="family-name" required></label>
+        </div>
+        <label>E-posta <input name="email" type="email" autocomplete="email" required></label>
+        <label>Telefon <input name="phone" type="tel" autocomplete="tel"></label>
+        <label>
+          <span id="password-label">Şifre (en az 6 karakter)</span>
+          <input name="password" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn" id="account-submit">Hesap oluştur</button>
+          <p class="form-message" role="status"></p>
+        </div>
+      </form>
+
+      <p class="auth-switch" id="account-switch">Zaten hesabın var mı? <a href="/login.html">Giriş yap</a></p>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/account.js"></script>
+</body>
+</html>

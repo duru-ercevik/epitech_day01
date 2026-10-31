@@ -1,0 +1,541 @@
+/* ---------- Renkler ve temel ayarlar ---------- */
+:root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --text: #1d1d1b;
+    --muted: #6b6b66;
+    --border: #e3e1da;
+    --primary: #2f5d50;
+    --primary-hover: #244a3f;
+    --primary-soft: #e4eeea;
+    --danger: #b3412e;
+    --success: #2f7a4f;
+    --radius: 12px;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* hidden özelliği, display veren sınıflar (.btn gibi) tarafından ezilmesin */
+  [hidden] {
+    display: none !important;
+  }
+  
+  body {
+    margin: 0;
+    font-family: "DM Sans", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  a {
+    color: var(--primary);
+  }
+  
+  .muted {
+    color: var(--muted);
+  }
+  
+  .error {
+    color: var(--danger);
+  }
+  
+  .success {
+    color: var(--success);
+    font-weight: 500;
+  }
+  
+  /* ---------- Üst menü ---------- */
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    gap: 16px;
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+  }
+  
+  .logo span {
+    color: var(--primary);
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* ---------- Butonlar ---------- */
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  
+  .btn:hover {
+    background: var(--primary-hover);
+  }
+  
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+  }
+  
+  .btn-ghost:hover {
+    background: var(--primary-soft);
+  }
+  
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .nav-links .btn {
+    color: #fff;
+  }
+  
+  .nav-links .btn-ghost {
+    color: var(--primary);
+  }
+  
+  /* ---------- Ana sayfa ---------- */
+  .hero {
+    padding: 48px 0 24px;
+  }
+  
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+  
+  .hero p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.1rem;
+  }
+  
+  .ads-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  /* ---------- Kartlar ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  
+  .ad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .ad-title {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .ad-company {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  
+  .ad-short {
+    margin: 12px 0 16px;
+  }
+  
+  .ad-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .badge {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .badge-closed {
+    background: #f3e3df;
+    color: var(--danger);
+  }
+  
+  .ad-details,
+  .ad-apply {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px 24px;
+    margin: 16px 0 0;
+  }
+  
+  .details-grid dt {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  
+  .details-grid dd {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* ---------- Formlar ---------- */
+  .apply-form h3 {
+    margin: 0 0 12px;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 14px;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+  form input,
+  form textarea,
+  form select {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font: inherit;
+    background: #fff;
+  }
+  
+  form input:focus,
+  form textarea:focus,
+  form select:focus {
+    outline: 2px solid var(--primary-soft);
+    border-color: var(--primary);
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+  }
+  
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .form-message {
+    margin: 0;
+  }
+  
+  /* ---------- Sayfalama ---------- */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  
+  /* ---------- Mobil ---------- */
+  @media (max-width: 600px) {
+    .hero h1 {
+      font-size: 1.7rem;
+    }
+  
+    .card {
+      padding: 16px;
+    }
+  
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  
+    .nav-links {
+      gap: 10px;
+    }
+  }
+  
+  /* ---------- Giriş / hesap sayfaları ---------- */
+  .auth-card {
+    max-width: 480px;
+    margin: 48px auto;
+    padding: 32px;
+  }
+  
+  .auth-card h1 {
+    margin: 0 0 4px;
+    font-size: 1.7rem;
+  }
+  
+  .auth-card > p {
+    margin: 0 0 20px;
+  }
+  
+  .auth-card form {
+    margin-top: 8px;
+  }
+  
+  .auth-switch {
+    margin: 24px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  
+  /* ---------- Yönetim paneli ---------- */
+  .container-wide {
+    max-width: 1160px;
+  }
+  
+  .panel-page {
+    padding-bottom: 48px;
+  }
+  
+  .panel-heading {
+    padding: 32px 0 16px;
+  }
+  
+  .panel-heading h1 {
+    margin: 0 0 4px;
+    font-size: 1.8rem;
+  }
+  
+  .panel-heading p {
+    margin: 0;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  
+  .tab {
+    padding: 10px 16px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    font: inherit;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .tab:hover {
+    color: var(--text);
+  }
+  
+  .tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  
+  .panel-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .panel-toolbar h2 {
+    display: inline;
+    margin: 0 8px 0 0;
+    font-size: 1.3rem;
+  }
+  
+  .panel-message {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--primary-soft);
+  }
+  
+  .panel-message.error {
+    background: #f3e3df;
+  }
+  
+  .panel-message.success {
+    background: #e3f0e8;
+  }
+  
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  
+  .data-table th {
+    background: #faf9f6;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  
+  .data-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .data-table tbody tr:hover {
+    background: #fbfaf7;
+  }
+  
+  .row-actions {
+    white-space: nowrap;
+    text-align: right;
+  }
+  
+  .row-actions .btn + .btn {
+    margin-left: 6px;
+  }
+  
+  .btn-danger {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  
+  .btn-danger:hover {
+    background: #f3e3df;
+  }
+  
+  .badge-on {
+    background: #e3f0e8;
+    color: var(--success);
+  }
+  
+  .badge-off {
+    background: #efeeea;
+    color: var(--muted);
+  }
+  
+  .record-form {
+    margin-bottom: 24px;
+  }
+  
+  .record-form h3 {
+    margin: 0 0 16px;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+  }
+  
+  .field-wide {
+    grid-column: 1 / -1;
+  }
+  
+  .field small {
+    display: block;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  
+  .field-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .field-checkbox input {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+  }
+  
+  @media (max-width: 600px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .panel-toolbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  /* Uzun metinler (mesaj, açıklama) tabloyu genişletmesin */
+  .cell-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 260px;
+  }

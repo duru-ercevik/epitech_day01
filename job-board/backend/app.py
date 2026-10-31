@@ -1,11 +1,17 @@
 from functools import wraps
 
-from flask import Flask, g, jsonify, request, session
+import os
+
+from flask import Flask, g, jsonify, request, send_from_directory, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import get_db, close_db, init_db, database_exists
 
-app = Flask(__name__)
+# Frontend dosyaları (HTML, CSS, JS) bir üst klasördeki frontend/ içinde.
+# Flask onları da servis ettiği için frontend ve API aynı adreste çalışır, CORS sorunu olmaz.
+FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "frontend")
+
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
 app.config["SECRET_KEY"] = "dev-secret-degistir"
 app.json.ensure_ascii = False  # Türkçe karakterler bozulmasın
 
@@ -88,6 +94,7 @@ def find_person(person_id):
 def find_application(application_id):
     row = get_db().execute(APPLICATION_SELECT + " WHERE ap.id = ?", (application_id,)).fetchone()
     return row_to_dict(row, ["email_sent"])
+
 
 def paginate(sql, params=(), bool_fields=()):
     """Bir SELECT sorgusunu sayfalara böler.
@@ -273,15 +280,25 @@ def update_me():
 
 @app.route("/")
 def home():
-    return "Job Board API çalışıyor"
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 
 # --- İLANLAR ---
 
-# READ: tüm ilanlar (herkese açık)
+# READ: ilanlar, sayfalı (herkese açık)
+# İstenirse şirkete göre filtrelenebilir: /api/ads?company_id=2
 @app.route("/api/ads", methods=["GET"])
 def list_ads():
-     return paginate(AD_SELECT + " ORDER BY a.id", bool_fields=["is_active"])
+    sql = AD_SELECT
+    params = []
+
+    company_id = request.args.get("company_id", type=int)
+    if company_id is not None:
+        sql += " WHERE a.company_id = ?"
+        params.append(company_id)
+
+    sql += " ORDER BY a.id"
+    return paginate(sql, params, bool_fields=["is_active"])
 
 
 # READ: tek ilan (herkese açık)
@@ -412,7 +429,7 @@ def delete_ad(ad_id):
 
 # --- ŞİRKETLER ---
 
-# READ: tüm şirketler (herkese açık, ilan sayfasında şirket bilgisi gösteriliyor)
+# READ: şirketler, sayfalı (herkese açık)
 @app.route("/api/companies", methods=["GET"])
 def list_companies():
     return paginate("SELECT * FROM companies ORDER BY id")
@@ -499,7 +516,7 @@ def validate_role_and_company(role, company_id):
     return None
 
 
-# READ: tüm kişiler
+# READ: kişiler, sayfalı
 @app.route("/api/people", methods=["GET"])
 @roles_required("admin")
 def list_people():
@@ -672,7 +689,7 @@ def create_application():
         return jsonify({"error": "Bu ilan artık başvuru kabul etmiyor"}), 400
 
     user = get_current_user()
-    if user:
+    if user and user["role"] == "user":
         # Giriş yapmış kullanıcı bilgilerini tekrar yazmak zorunda değil:
         # ad, e-posta ve telefon hesabından alınır
         person_id = user["id"]
@@ -680,9 +697,13 @@ def create_application():
         email = user["email"]
         phone = user["phone"]
     else:
+        # Ziyaretçi formu doldurur. Admin de panelden bir aday adına başvuru
+        # eklerken adayın bilgilerini yazar (kendi bilgileri kullanılmaz).
         if not data.get("name") or not data.get("email"):
             return jsonify({"error": "name ve email zorunlu"}), 400
-        person_id = None
+        person_id = data.get("person_id") if user and user["role"] == "admin" else None
+        if person_id is not None and find_person(person_id) is None:
+            return jsonify({"error": "Kişi bulunamadı"}), 400
         name = data["name"]
         email = data["email"].strip().lower()
         phone = data.get("phone")
