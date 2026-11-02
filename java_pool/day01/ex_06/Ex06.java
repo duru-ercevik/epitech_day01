@@ -12,7 +12,7 @@ class Ex06 {
     }
 
     private static String next(String s) {
-        StringBuilder sb = new StringBuilder();
+        String result = "";
         int i = 0;
         while (i < s.length()) {
             char c = s.charAt(i);
@@ -20,9 +20,10 @@ class Ex06 {
             while (i + count < s.length() && s.charAt(i + count) == c) {
                 count++;
             }
-            sb.append(count).append(c);
+            result += count;
+            result += c;
             i += count;
         }
-        return sb.toString();
+        return result;
     }
 }
